@@ -959,7 +959,7 @@ function stats_details_kpsule(info){
 	// display for stats of action
 	
 	// add template
-	var each_block_head = '<tr><td><p class="ge-ta-txt pull-left ge-ta-txt-up">Action : ' + info.cs_s_a + '</p><p class="ge-ta-txt pull-left ge-ta-txt-down">Categore : ' + info.cs_s_cat + '</p></td><td><img class="de-kp-opn" src="images/plus.jpg" alt="open" /><img class="de-kp-hid" src="images/moins.jpg" alt="hide" /></td></tr><tr class="de-kp-hide"><td colspan="2" ><hr></td></tr><tr class="de-kp-hide"><td colspan="2">';
+	var each_block_head = '<tr><td><p class="ge-ta-txt pull-left ge-ta-txt-up">Action : ' + info.cs_s_a + '</p><p class="ge-ta-txt pull-left ge-ta-txt-down">Categore : ' + info.cs_s_cat + '</p></td><td><img class="de-kp-opn" src="images/plus.jpg" alt="open" /><img class="de-kp-hid" src="images/moins.jpg" style="display:none;" alt="hide" /></td></tr><tr class="de-kp-hide"><td colspan="2" ><hr></td></tr><tr class="de-kp-hide"><td colspan="2">';
 	var each_block_foot = '</td></tr><tr><td colspan="2"><hr></td></tr>';
 	
 	// add each node
@@ -968,19 +968,7 @@ function stats_details_kpsule(info){
 		each_block_head += each_node;
 	}
 	$( each_block_head + each_block_foot ).appendTo( "table#details-kpsule-table tbody" );
-
-	// css update
-	if( $(".de-kp-opn").css("display") != "none" ){
-		// open
-		$(".de-kp-hide,.de-kp-hid").hide();
-		$(".de-kp-opn").show();
-	}else{
-		// close
-		$(".de-kp-hide,.de-kp-hid").show();
-		$(".de-kp-opn").hide();			
-	}
-
-	// js update
+	
 	$(".de-kp-hid").click(function(){
 		//hide
 		$(this).hide();
@@ -1003,6 +991,32 @@ function stats_details_kpsule(info){
 		$(this).closest("tr").css("background-color", "#a6a8ab");
 		$(this).parent().prev().find("p").css("background-color", "#a6a8ab").css("color","#fff");
 	});
+	
+	// general css update
+	$(".de-kp-hid").each(function(){
+		if($(this).css("display") == "none"){
+			// change display icon
+			$(this).hide();
+			$(this).prev().show();
+			// open
+			$(this).closest("tr").next().hide();
+			$(this).closest("tr").next().next().hide();
+			// change css
+			$(this).closest("tr").css("background-color", "#231f20");
+			$(this).parent().prev().find("p").css("background-color", "#231f20").css("color","#c8c8c8");
+		}else{
+			// change display icon
+			$(this).prev().hide();			
+			$(this).show();
+			// hide			
+			$(this).closest("tr").next().show();
+			$(this).closest("tr").next().next().show();
+			// return css
+			$(this).closest("tr").css("background-color", "#a6a8ab");
+			$(this).parent().prev().find("p").css("background-color", "#a6a8ab").css("color","#fff");
+		}
+	});
+	
 }	
 
 /* Function Else */
@@ -1470,7 +1484,7 @@ $(document).ready(function(){
 		//hide
 		$("#general,#details,.de-kp-hide").hide();
 	});
-	$(".de-kp-hid").click(function(){
+	/*$(".de-kp-hid").click(function(){
 		//hide
 		$(this).hide();
 		$(this).closest("tr").next().hide();
@@ -1491,7 +1505,7 @@ $(document).ready(function(){
 		//change css
 		$(this).closest("tr").css("background-color", "#a6a8ab");
 		$(this).parent().prev().find("p").css("background-color", "#a6a8ab").css("color","#fff");
-	});
+	});*/
 	
 	// timer detials
 	$("#timers-cls").click(function(){
