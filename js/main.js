@@ -348,6 +348,37 @@ function stats_general_action(info){
 }
 
 /* Details */
+function display_details( obj_id ){
+	/* display the DETAILS block if there is any INFO object charged */
+	$("#" + obj_id ).closest("tr").show();
+	$("#" + obj_id ).closest("tr").next().show();
+}
+
+function parse_xml( info, obj_id ){
+    /* parse URL to get the 'Nom de la Section' */
+
+	// get section name
+	var kid = info.cs_s_kid;
+	var eid = info.cs_s_fpath.split("/")[0];
+	var ck_kid = /^\d+$/.test(kid);
+	var ck_eid = /^\d+$/.test(eid);
+	//console.log( kid, "-", ck_kid, "    ", eid, "-", ck_eid);
+	
+	// test, nom de la section, var: aid
+	if( ck_eid && ck_kid ){
+		// get < Nom de la Section >
+		var obj_xml = window.KPSULE_MAP[ kid ].data;
+		var obj_section_name = $( obj_xml ).find("nav").find("section[eid='" + eid + "']").attr("title").toUpperCase();	
+
+		//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");		
+		$("#" + obj_id + "-NOM").closest("tr.nom-de-la-section").show();
+		$("#" + obj_id + "-NOM").closest("tr.nom-de-la-section").next().show();
+		$("#" + obj_id + "-NOM").text(obj_section_name);
+	}else{
+		console.log("There is really nothing !!!!!!!");
+	}
+}
+
 function stats_detail(info){
 	// display for stats of action
 	
@@ -356,30 +387,35 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-ADHESION").text() );
 			$("#DETAILS-ADHESION").text( objValue + 1 );
+			display_details("DETAILS-ADHESION");
 			break;
 			
 		case "FIRSTENGAGE" + "-" + "ADS_FIRSTENGAGE":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-ADHESION-UNIQUE").text() );
 			$("#DETAILS-ADHESION-UNIQUE").text( objValue + 1 );
+			display_details("DETAILS-ADHESION-UNIQUE");
 			break;
 			
 		case "CLICK" + "-" + "CLICK":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-CLIC").text() );
 			$("#DETAILS-CLIC").text( objValue + 1 );
+			display_details("DETAILS-CLIC");
 			break;
 			
 		case "EXPAND" + "-" + "ADS_EXPAND":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-ENGAGEMENT").text() );
 			$("#DETAILS-ENGAGEMENT").text( objValue + 1 );
+			display_details("DETAILS-ENGAGEMENT");
 			break;
 			
 		case "FIRSTEXPAND" + "-" + "ADS_FIRSTEXPAND":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-ENGAGEMENT-UNIQUE").text() );
 			$("#DETAILS-ENGAGEMENT-UNIQUE").text( objValue + 1 );
+			display_details("DETAILS-ENGAGEMENT-UNIQUE");
 			break;
 			
 		case "SUSCRIBE" + "-" + "MAILINGLIST_SUBSCRIBE":
@@ -387,18 +423,21 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-ENVOI-DU-FORMULAIRE").text() );
 			$("#DETAILS-ENVOI-DU-FORMULAIRE").text( objValue + 1 );
+			parse_xml( info, "DETAILS-ENVOI-DU-FORMULAIRE" );
 			break;
 			
 		case "COLLAPSE" + "-" + "ADS_COLLAPSE":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-FERMETURE-DE-LA-BANNIERE").text() );
 			$("#DETAILS-FERMETURE-DE-LA-BANNIERE").text( objValue + 1 );
+			display_details("DETAILS-FERMETURE-DE-LA-BANNIERE");
 			break;
 			
 		case "CLOSE" + "-" + "AUDIO_CLOSE":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-FERMETURE-DU-PANNEAU").text() );
 			$("#DETAILS-FERMETURE-DU-PANNEAU").text( objValue + 1 );
+			display_details("DETAILS-FERMETURE-DU-PANNEAU");
 			break;
 			
 		case "CLOSE" + "-" + "TEASER_CLOSE":
@@ -417,24 +456,28 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-FERMETURE-DE-LA-SECTION-VIOLET").text() );
 			$("#DETAILS-FERMETURE-DE-LA-SECTION-VIOLET").text( objValue + 1 );
+			parse_xml( info, "DETAILS-FERMETURE-DE-LA-SECTION-VIOLET" );
 			break;
 
 		case "CLOSE" + "-" + "VIDEOS_CLOSE":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-FERMETURE-DE-LA-SECTION-BLUE").text() );
 			$("#DETAILS-FERMETURE-DE-LA-SECTION-BLUE").text( objValue + 1 );
+			parse_xml( info, "DETAILS-FERMETURE-DE-LA-SECTION-BLUE" );
 			break;
 			
 		case "FOLLOW" + "-" + "TWITTER_FOLLOW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-FOLLOW").text() );
 			$("#DETAILS-FOLLOW").text( objValue + 1 );
+			parse_xml( info, "DETAILS-FOLLOW" );
 			break;
 			
 		case "VIEW" + "-" + "VIEW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-KPSULE-CHARGEE").text() );
 			$("#DETAILS-KPSULE-CHARGEE").text( objValue + 1 );
+			display_details("DETAILS-KPSULE-CHARGEE");
 			break;
 			
 		case "OPEN_CONTENT" + "-" + "TEASER_VIEW":
@@ -443,6 +486,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LECTURE").text() );
 			$("#DETAILS-LECTURE").text( objValue + 1 );
+			parse_xml( info, "DETAILS-LECTURE" );
 			break;
 			
 		case "PROGRESS" + "-" + "TEASER_25":
@@ -451,6 +495,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LECTUREA25").text() );
 			$("#DETAILS-LECTUREA25").text( objValue + 1 );
+			parse_xml( info, "DETAILS-LECTUREA25" );
 			break;
 			
 		case "PROGRESS" + "-" + "TEASER_50":
@@ -459,6 +504,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LECTUREA50").text() );
 			$("#DETAILS-LECTUREA50").text( objValue + 1 );
+			parse_xml( info, "DETAILS-LECTUREA50" );
 			break;
 			
 		case "PROGRESS" + "-" + "TEASER_75":
@@ -467,6 +513,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LECTUREA75").text() );
 			$("#DETAILS-LECTUREA75").text( objValue + 1 );
+			parse_xml( info, "DETAILS-LECTUREA75" );
 			break;
 			
 		case "PROGRESS" + "-" + "TEASER_COMPLETE":
@@ -475,6 +522,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LECTUREA100").text() );
 			$("#DETAILS-LECTUREA100").text( objValue + 1 );
+			parse_xml( info, "DETAILS-LECTUREA100" );
 			break;
 	
 	    // Lien externe
@@ -489,13 +537,14 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "-----------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE").text() );
 			$("#DETAILS-LIEN-EXTERNE").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-LIEN-EXTERNE" );
 			if( $("#DETAILS-LIEN-EXTERNE-URL").length == 0 ){
 				// first time add,
-				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-URL">' + info.cs_s_lbl  + '</p>';
+				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-URL">' + decodeURIComponent(info.cs_s_lbl)  + '</p>';
 				$( le_block ).appendTo( "#DETAILS-LIEN-EXTERNE-URL-DIV" );
 			}else{
 				// after replace
-				$("#DETAILS-LIEN-EXTERNE-URL").text(info.cs_s_lbl);
+				$("#DETAILS-LIEN-EXTERNE-URL").text( decodeURIComponent(info.cs_s_lbl) );
 			}
 			break;
 
@@ -503,7 +552,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "EXTERNAL_LINK":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE").text() );
-			$("#DETAILS-LIEN-EXTERNE").text( objValue + 1 );		
+			$("#DETAILS-LIEN-EXTERNE").text( objValue + 1 );
+			display_details("DETAILS-LIEN-EXTERNE");
 			if( $("#DETAILS-LIEN-EXTERNE-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-URL">' + info.cs_s_lbl  + '</p>';
@@ -517,7 +567,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "NEWS_GLOBALLINK":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-GLOBAL").text() );
-			$("#DETAILS-LIEN-EXTERNE-GLOBAL").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-GLOBAL").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-GLOBAL" );
 			if( $("#DETAILS-LIEN-EXTERNE-GLOBAL-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-GLOBAL-URL">' + info.cs_s_lbl  + '</p>';
@@ -531,7 +582,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "EVENT_LINK":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-LIEN").text() );
-			$("#DETAILS-LIEN-EXTERNE-LIEN").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-LIEN").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-LIEN" );
 			if( $("#DETAILS-LIEN-EXTERNE-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-LIEN-URL">' + info.cs_s_lbl  + '</p>';
@@ -545,7 +597,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "EVENT_RESA":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-RESERVATION").text() );
-			$("#DETAILS-LIEN-EXTERNE-RESERVATION").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-RESERVATION").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-RESERVATION" );
 			if( $("#DETAILS-LIEN-EXTERNE-RESERVATION-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-RESERVATION-URL">' + info.cs_s_lbl  + '</p>';
@@ -559,7 +612,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "CONTACTS_MAIL":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-MAIL").text() );
-			$("#DETAILS-LIEN-EXTERNE-MAIL").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-MAIL").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-MAIL" );
 			if( $("#DETAILS-LIEN-EXTERNE-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-MAIL-URL">' + info.cs_s_lbl  + '</p>';
@@ -573,7 +627,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "AUDIO_LINK":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-LIEN-GENERAL").text() );
-			$("#DETAILS-LIEN-EXTERNE-LIEN-GENERAL").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-LIEN-GENERAL").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-LIEN-GENERAL" );
 			if( $("#DETAILS-LIEN-EXTERNE-LIEN-GENERAL-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-LIEN-GENERAL-URL">' + info.cs_s_lbl  + '</p>';
@@ -587,7 +642,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "AUDIO_ALBUMSHOP":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-ALBUM").text() );
-			$("#DETAILS-LIEN-EXTERNE-ALBUM").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-ALBUM").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-ALBUM" );
 			if( $("#DETAILS-LIEN-EXTERNE-ALBUM-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-ALBUM-URL">' + info.cs_s_lbl  + '</p>';
@@ -601,7 +657,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "TWITTER_VIEWTWEETS":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-PAGE-TWITTER").text() );
-			$("#DETAILS-LIEN-EXTERNE-PAGE-TWITTER").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-PAGE-TWITTER").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-PAGE-TWITTER" );
 			if( $("#DETAILS-LIEN-EXTERNE-PAGE-TWITTER-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-PAGE-TWITTER-URL">' + info.cs_s_lbl  + '</p>';
@@ -616,6 +673,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER").text() );
 			$("#DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER").text( objValue + 1 );
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER" );
 			if( $("#DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER-URL">' + info.cs_s_lbl  + '</p>';
@@ -629,7 +687,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "EVENT_FBEVENT":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK").text() );
-			$("#DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK" );
 			if( $("#DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK-URL">' + info.cs_s_lbl  + '</p>';
@@ -643,7 +702,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "AUDIO_TRACKSHOP":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-TRACK").text() );
-			$("#DETAILS-LIEN-EXTERNE-TRACK").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-TRACK").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-TRACK" );
 			if( $("#DETAILS-LIEN-EXTERNE-TRACK-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-TRACK-URL">' + info.cs_s_lbl  + '</p>';
@@ -657,7 +717,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "CONTACTS_WEBSITE":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-WEBSITE").text() );
-			$("#DETAILS-LIEN-EXTERNE-WEBSITE").text( objValue + 1 );
+			$("#DETAILS-LIEN-EXTERNE-WEBSITE").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-WEBSITE" );
 			if( $("#DETAILS-LIEN-EXTERNE-WEBSITE-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-WEBSITE-URL">' + info.cs_s_lbl  + '</p>';
@@ -671,7 +732,8 @@ function stats_detail(info){
 		case "EXTERNAL_LINK" + "-" + "TWITTER_TWEETLINK":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-LIEN-EXTERNE-TWEET").text() );
-			$("#DETAILS-LIEN-EXTERNE-TWEET").text( objValue + 1 );	
+			$("#DETAILS-LIEN-EXTERNE-TWEET").text( objValue + 1 );			
+			parse_xml( info, "DETAILS-LIEN-EXTERNE-TWEET" );
 			if( $("#DETAILS-LIEN-EXTERNE-URL").length == 0 ){
 				// first time add,
 				var le_block = '<p class="de-sub-txt le_url" id="DETAILS-LIEN-EXTERNE-TWEET-URL">' + info.cs_s_lbl  + '</p>';
@@ -699,13 +761,15 @@ function stats_detail(info){
 		case "OPEN_SECTION" + "-" + "PRODUCTS_SECTION":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-OUVERTURE-DE-SECTION").text() );
-			$("#DETAILS-OUVERTURE-DE-SECTION").text( objValue + 1 );
+			$("#DETAILS-OUVERTURE-DE-SECTION").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-OUVERTURE-DE-SECTION" );
 			break;	
 
 		case "OPEN_SECTION" + "-" + "AUDIO_SECTION":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-OUVERTURE-DU-PANNEAU").text() );
-			$("#DETAILS-OUVERTURE-DU-PANNEAU").text( objValue + 1 );
+			$("#DETAILS-OUVERTURE-DU-PANNEAU").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-OUVERTURE-DU-PANNEAU" );
 			break;	
 		
 		case "SHARE" + "-" + "ADS_SHARETWITTER":
@@ -721,6 +785,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-TWITTER").text() );
 			$("#DETAILS-PARTAGE-TWITTER").text( objValue + 1 );
+			display_details("");
 			break;	
 
 		case "SHARE" + "-" + "ADS_SHAREGOOGLE":
@@ -736,6 +801,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-GOOGLE").text() );
 			$("#DETAILS-PARTAGE-GOOGLE").text( objValue + 1 );
+			display_details("");
 			break;			
 			
 		case "SHARE" + "-" + "ADS_SHAREFACEBOOK":
@@ -751,6 +817,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-FACEBOOK").text() );
 			$("#DETAILS-PARTAGE-FACEBOOK").text( objValue + 1 );
+			display_details("");
 			break;			
 			
 		// PARTAGE MAIL 	
@@ -767,6 +834,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-MAIL").text() );
 			$("#DETAILS-PARTAGE-MAIL").text( objValue + 1 );
+			display_details("");
 			break;		
 
 		// PARTAGE SEND MAIL 	
@@ -782,6 +850,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-MAIL-SEND").text() );
 			$("#DETAILS-PARTAGE-MAIL-SEND").text( objValue + 1 );
+			display_details("");
 			break;				
 		
 		// Partage autre
@@ -798,6 +867,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-AUTRE").text() );
 			$("#DETAILS-PARTAGE-AUTRE").text( objValue + 1 );
+			display_details("");
 			break;
 			
 		// PARTAGE LINK
@@ -812,6 +882,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-LINK").text() );
 			$("#DETAILS-PARTAGE-LINK").text( objValue + 1 );
+			display_details("");
 			break;						
 
 		// Partage embed	
@@ -826,6 +897,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PARTAGE-EMBED").text() );
 			$("#DETAILS-PARTAGE-EMBED").text( objValue + 1 );
+			display_details("");
 			break;	
 
 		case "FULLSCREEN" + "-" + "TEASER_FULLSCREEN":
@@ -834,50 +906,58 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-PASSAGE-EN-FULLSCREEN").text() );
 			$("#DETAILS-PASSAGE-EN-FULLSCREEN").text( objValue + 1 );
+			parse_xml( info, "DETAILS-PASSAGE-EN-FULLSCREEN" );
 			break;	
 
 		case "RETWEET" + "-" + "TWITTER_RETWEET":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-RETWEET").text() );
-			$("#DETAILS-RETWEET").text( objValue + 1 );
+			$("#DETAILS-RETWEET").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-RETWEET" );
 			break;	
 
 		case "REPLY" + "-" + "TWITTER_REPLY":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-REPLY").text() );
-			$("#DETAILS-REPLY").text( objValue + 1 );
+			$("#DETAILS-REPLY").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-REPLY" );
 			break;	
 
 		case "EXIT_FULLSCREEN" + "-" + "TEASER_EXITFULLSCREEN":
 		case "EXIT_FULLSCREEN" + "-" + "VIDEOS_EXITFULLSCREEN":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-SORTIR-DU-FULLSCREEN").text() );
-			$("#DETAILS-SORTIR-DU-FULLSCREEN").text( objValue + 1 );
+			$("#DETAILS-SORTIR-DU-FULLSCREEN").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-SORTIR-DU-FULLSCREEN" );
 			break;	
 
 		case "DOWNLOAD" + "-" + "PHOTOS_DOWNLOAD":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-TELECHARGEMENT-DE-PHOTO").text() );
-			$("#DETAILS-TELECHARGEMENT-DE-PHOTO").text( objValue + 1 );
+			$("#DETAILS-TELECHARGEMENT-DE-PHOTO").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-TELECHARGEMENT-DE-PHOTO" );
 			break;	
 
 		case "DOWNLOAD" + "-" + "EVENT_DATE":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-TELECHARGEMENT-DUN-EVENEMENT").text() );
-			$("#DETAILS-TELECHARGEMENT-DUN-EVENEMENT").text( objValue + 1 );
+			$("#DETAILS-TELECHARGEMENT-DUN-EVENEMENT").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-TELECHARGEMENT-DUN-EVENEMENT" );
 			break;	
 
 		case "DOWNLOAD" + "-" + "CONTACTS_DOWNLOAD":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-TELECHARGEMENT-DUN-CONTACT").text() );
 			$("#DETAILS-TELECHARGEMENT-DUN-CONTACT").text( objValue + 1 );
+			parse_xml( info, "DETAILS-TELECHARGEMENT-DUN-CONTACT" );
 			break;	
 
 		case "EXTERNAL_LINK" + "-" + "EVENT_MAP":
 		case "OPEN_CONTENT" + "-" + "EVENT_SHOWMAP":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VOIR-LA-CARTE").text() );
-			$("#DETAILS-VOIR-LA-CARTE").text( objValue + 1 );
+			$("#DETAILS-VOIR-LA-CARTE").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-VOIR-LA-CARTE" );
 			break;		
 
 		case "OPEN_CONTENT" + "-" + "CUSTOM_SECTION_VIEW":
@@ -888,6 +968,7 @@ function stats_detail(info){
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DE-LA-SECTION").text() );
 			$("#DETAILS-VUE-DE-LA-SECTION").text( objValue + 1 );
+			parse_xml( info, "DETAILS-VUE-DE-LA-SECTION" );
 			break;		
 
 		case "OPEN_CONTENT" + "-" + "PHOTOS_LISTVIEW":
@@ -897,56 +978,65 @@ function stats_detail(info){
 		case "OPEN_CONTENT" + "-" + "PRODUCTS_LISTVIEW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DE-LA-LISTE").text() );
-			$("#DETAILS-VUE-DE-LA-LISTE").text( objValue + 1 );
+			$("#DETAILS-VUE-DE-LA-LISTE").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-VUE-DE-LA-LISTE" );
 			break;		
 
 		case "OPEN_CONTENT" + "-" + "PHOTOS_VIEW":
 		case "OPEN_CONTENT" + "-" + "PRODUCTS_PHOTO":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DUNE-PHOTO").text() );
-			$("#DETAILS-VUE-DUNE-PHOTO").text( objValue + 1 );
+			$("#DETAILS-VUE-DUNE-PHOTO").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-VUE-DUNE-PHOTO" );
 			break;		
 
 		case "OPEN_CONTENT" + "-" + "NEWS_VIEW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DUNE-NEWS").text() );
 			$("#DETAILS-VUE-DUNE-NEWS").text( objValue + 1 );
+			parse_xml( info, "DETAILS-VUE-DUNE-NEWS" );
 			break;		
 
 		case "OPEN_CONTENT" + "-" + "CARDS_VIEW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DUNE-FICHE").text() );
-			$("#DETAILS-VUE-DUNE-FICHE").text( objValue + 1 );
+			$("#DETAILS-VUE-DUNE-FICHE").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-VUE-DUNE-FICHE" );
 			break;		
 
 		case "OPEN_CONTENT" + "-" + "CARDS_TEXTE":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DE-LA-PAGE-TEXTE").text() );
-			$("#DETAILS-VUE-DE-LA-PAGE-TEXTE").text( objValue + 1 );
+			$("#DETAILS-VUE-DE-LA-PAGE-TEXTE").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-VUE-DE-LA-PAGE-TEXTE" );
 			break;	
 			
 		case "OPEN_CONTENT" + "-" + "CARDS_LINKS":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DE-LA-PAGE-LIENS").text() );
-			$("#DETAILS-VUE-DE-LA-PAGE-LIENS").text( objValue + 1 );
+			$("#DETAILS-VUE-DE-LA-PAGE-LIENS").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-VUE-DE-LA-PAGE-LIENS" );
 			break;	
 			
 		case "OPEN_CONTENT" + "-" + "TWITTER_ACCOUNTVIEW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DUN-COMPTE-TWITTER").text() );
-			$("#DETAILS-VUE-DUN-COMPTE-TWITTER").text( objValue + 1 );
+			$("#DETAILS-VUE-DUN-COMPTE-TWITTER").text( objValue + 1 );	
+			parse_xml( info, "DETAILS-VUE-DUN-COMPTE-TWITTER" );
 			break;	
 			
 		case "OPEN_CONTENT" + "-" + "PRODUCTS_VIEW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-DUN-PRODUIT").text() );
 			$("#DETAILS-VUE-DUN-PRODUIT").text( objValue + 1 );
+			parse_xml( info, "DETAILS-VUE-DUN-PRODUIT" );
 			break;	
 			
 		case "OPEN_CONTENT" + "-" + "EVENT_VIEW":
 			//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
 			var objValue = parseInt( $("#DETAILS-VUE-EVENEMENT-LIEU").text() );
-			$("#DETAILS-VUE-EVENEMENT-LIEU").text( objValue + 1 );
+			$("#DETAILS-VUE-EVENEMENT-LIEU").text( objValue + 1 );		
+			parse_xml( info, "DETAILS-VUE-EVENEMENT-LIEU" );
 			break;		
 			
 		default:
@@ -959,7 +1049,7 @@ function stats_details_kpsule(info){
 	// display for stats of action
 	
 	// add template
-	var each_block_head = '<tr><td><p class="ge-ta-txt pull-left ge-ta-txt-up">Action : ' + info.cs_s_a + '</p><p class="ge-ta-txt pull-left ge-ta-txt-down">Categore : ' + info.cs_s_cat + '</p></td><td><img class="de-kp-opn" src="images/plus.jpg" alt="open" /><img class="de-kp-hid" src="images/moins.jpg" style="display:none;" alt="hide" /></td></tr><tr class="de-kp-hide"><td colspan="2" ><hr></td></tr><tr class="de-kp-hide"><td colspan="2">';
+	var each_block_head = '<tr class="de-kp-open"><td><p class="ge-ta-txt pull-left ge-ta-txt-up">Action : ' + info.cs_s_a + '</p><p class="ge-ta-txt pull-left ge-ta-txt-down">Categore : ' + info.cs_s_cat + '</p></td><td><img class="de-kp-opn" src="images/plus.jpg" alt="open" /><img class="de-kp-hid" src="images/moins.jpg" style="display:none;" alt="hide" /></td></tr><tr class="de-kp-hide"><td colspan="2" ><hr></td></tr><tr class="de-kp-hide"><td colspan="2">';
 	var each_block_foot = '</td></tr><tr><td colspan="2"><hr></td></tr>';
 	
 	// add each node
@@ -1021,8 +1111,8 @@ function stats_details_kpsule(info){
 
 /* Function Else */
 function default_css_events(){
-	/* default display for events */
-	$("#events-opn,#details,#details-kpsule,.de-kp-hid,.nom-de-la-section").hide();
+	/* default display for events */	
+	$("#events-opn,#details,#details-kpsule,.de-kp-hid,.nom-de-la-section, #details-table tr").hide();
 }
 
 function default_css_timers(){
@@ -1035,392 +1125,6 @@ function capitalise_first_letter(string){
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function parse_xml(info){
-	"Parse XML of a Kpsule to find a related section name"
-
-	var kid = info.cs_s_kid;
-	var eid = info.cs_s_fpath.split("/")[0];
-	var ck_kid = /^\d+$/.test(kid);
-	var ck_eid = /^\d+$/.test(eid);
-	//console.log( kid, "-", ck_kid, "    ", eid, "-", ck_eid);
-		
-	// test, nom de la section, var: aid
-	if( ck_eid && ck_kid ){
-	
-		// get < Nom de la Section >
-		var obj_xml = window.KPSULE_MAP[ kid ].data;
-		var obj_section = $( obj_xml ).find("nav").find("section[eid='" + eid + "']").attr("title").toUpperCase();	
-
-		// identify, css display and replace name 	
-		switch(info.cs_s_cat + "-" + info.cs_s_a){
-	
-			case "SUSCRIBE" + "-" + "MAILINGLIST_SUBSCRIBE":
-			case "SUSCRIBE" + "-" + "BONUSFILE_SUBSCRIBE":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");		
-				$("#DETAILS-ENVOI-DU-FORMULAIRE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-ENVOI-DU-FORMULAIRE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-ENVOI-DU-FORMULAIRE-NOM").text(obj_section);
-				break;	
-				
-			case "CLOSE" + "-" + "TEASER_CLOSE":
-			case "CLOSE" + "-" + "PHOTOS_CLOSE":
-			case "CLOSE" + "-" + "NEWS_CLOSE":
-			case "CLOSE" + "-" + "FULLTEXT_CLOSE":
-			case "OPEN_CONTENT" + "-" + "LINKS_CLOSE":
-			case "CLOSE" + "-" + "CARDS_CLOSE":
-			case "CLOSE" + "-" + "EVENT_CLOSE":
-			case "CLOSE" + "-" + "AUDIO_CLOSE":
-			case "CLOSE" + "-" + "CONTACTS_CLOSE":
-			case "CLOSE" + "-" + "TWITTER_CLOSE":
-			case "CLOSE" + "-" + "MAILINGLIST_CLOSE":
-			case "CLOSE" + "-" + "BONUSFILE_CLOSE":
-			case "CLOSE" + "-" + "MAILINGLIST_CLOSE":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-				$("#DETAILS-FERMETURE-DE-LA-SECTION-VIOLET-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-FERMETURE-DE-LA-SECTION-VIOLET-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-FERMETURE-DE-LA-SECTION-VIOLET-NOM").text(obj_section);
-				break;
-
-			case "CLOSE" + "-" + "VIDEOS_CLOSE":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-				
-				$("#DETAILS-FERMETURE-DE-LA-SECTION-BLUE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-FERMETURE-DE-LA-SECTION-BLUE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-FERMETURE-DE-LA-SECTION-BLUE-NOM").text(obj_section);
-				break;
-				
-			case "FOLLOW" + "-" + "TWITTER_FOLLOW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-
-				$("#DETAILS-FOLLOW-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-FOLLOW-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-FOLLOW-NOM").text(obj_section);
-				break;
-								
-			case "OPEN_CONTENT" + "-" + "TEASER_VIEW":
-			case "OPEN_CONTENT" + "-" + "VIDEOS_VIEW":
-			case "OPEN_CONTENT" + "-" + "AUDIO_PLAY":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-	
-				$("#DETAILS-LECTURE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LECTURE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LECTURE-NOM").text(obj_section);
-				break;
-				
-			case "PROGRESS" + "-" + "TEASER_25":
-			case "PROGRESS" + "-" + "VIDEOS_25":
-			case "PROGRESS" + "-" + "AUDIO_25":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-
-				$("#DETAILS-LECTUREA25-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LECTUREA25-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LECTUREA25-NOM").text(obj_section);
-				break;
-				
-			case "PROGRESS" + "-" + "TEASER_50":
-			case "PROGRESS" + "-" + "VIDEOS_50":
-			case "PROGRESS" + "-" + "AUDIO_50":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-
-				$("#DETAILS-LECTUREA50-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LECTUREA50-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LECTUREA50-NOM").text(obj_section);
-				break;
-				
-			case "PROGRESS" + "-" + "TEASER_75":
-			case "PROGRESS" + "-" + "VIDEOS_75":
-			case "PROGRESS" + "-" + "AUDIO_75":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-
-				$("#DETAILS-LECTUREA75-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LECTUREA75-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LECTUREA75-NOM").text(obj_section);
-				break;
-				
-			case "PROGRESS" + "-" + "TEASER_COMPLETE":
-			case "PROGRESS" + "-" + "VIDEOS_COMPLETE":
-			case "PROGRESS" + "-" + "AUDIO_COMPLETE":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-				
-				$("#DETAILS-LECTUREA100-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LECTUREA100-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LECTUREA100-NOM").text(obj_section);
-				break;
-				
-			// Lien externe
-			case "EXTERNAL_LINK" + "-" + "SECTIONLINK":
-			case "EXTERNAL_LINK" + "-" + "TITLELINK":
-			case "EXTERNAL_LINK" + "-" + "CUSTOM":
-			case "EXTERNAL_LINK" + "-" + "NEWS_LINK":
-			case "EXTERNAL_LINK" + "-" + "FULLTEXT_LINK":
-			case "EXTERNAL_LINK" + "-" + "LINKS_LINK":
-			case "EXTERNAL_LINK" + "-" + "CARDS_LINK":
-			case "EXTERNAL_LINK" + "-" + "PRODUCTS_LINK":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "-----------------------------");					
-				$("#DETAILS-LIEN-EXTERNE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-NOM").text(obj_section);
-				break;
-											
-			case "EXTERNAL_LINK" + "-" + "NEWS_GLOBALLINK":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");				
-				$("#DETAILS-LIEN-EXTERNE-GLOBAL-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-GLOBAL-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-GLOBAL-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "EVENT_LINK":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");							
-				$("#DETAILS-LIEN-EXTERNE-LIEN-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-LIEN-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-LIEN-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "EVENT_RESA":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");										
-				$("#DETAILS-LIEN-EXTERNE-RESERVATION-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-RESERVATION-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-RESERVATION-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "CONTACTS_MAIL":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-LIEN-EXTERNE-MAIL-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-MAIL-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-MAIL-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "AUDIO_LINK":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");				
-				$("#DETAILS-LIEN-EXTERNE-LIEN-GENERAL-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-LIEN-GENERAL-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-LIEN-GENERAL-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "AUDIO_ALBUMSHOP":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");				
-				$("#DETAILS-LIEN-EXTERNE-ALBUM-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-ALBUM-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-ALBUM-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "TWITTER_VIEWTWEETS":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-LIEN-EXTERNE-PAGE-TWITTER-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-PAGE-TWITTER-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-PAGE-TWITTER-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "TWITTER_AUTHORLINK":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");				
-				$("#DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-PAGE-AUTEUR-TWITTER-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "EVENT_FBEVENT":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");			
-				$("#DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-EVENEMENT-FACEBOOK-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "AUDIO_TRACKSHOP":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-LIEN-EXTERNE-TRACK-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-TRACK-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-TRACK-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "CONTACTS_WEBSITE":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-LIEN-EXTERNE-WEBSITE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-WEBSITE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-WEBSITE-NOM").text(obj_section);
-				break;
-				
-			case "EXTERNAL_LINK" + "-" + "TWITTER_TWEETLINK":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");				
-				$("#DETAILS-LIEN-EXTERNE-TWEET-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-LIEN-EXTERNE-TWEET-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-LIEN-EXTERNE-TWEET-NOM").text(obj_section);
-				break;
-				
-			case "OPEN_SECTION" + "-" + "TEASER_SECTION":
-			case "OPEN_SECTION" + "-" + "CUSTOM_SECTION":
-			case "OPEN_SECTION" + "-" + "TEASER_SECTION":
-			case "OPEN_SECTION" + "-" + "VIDEOS_SECTION":
-			case "OPEN_SECTION" + "-" + "PHOTOS_SECTION":
-			case "OPEN_SECTION" + "-" + "NEWS_SECTION":
-			case "OPEN_SECTION" + "-" + "FULLTEXT_SECTION":
-			case "OPEN_SECTION" + "-" + "LINKS_SECTION":
-			case "OPEN_SECTION" + "-" + "CARDS_SECTION":
-			case "OPEN_SECTION" + "-" + "EVENT_SECTION":
-			case "OPEN_SECTION" + "-" + "CONTACTS_SECTION":
-			case "OPEN_SECTION" + "-" + "TWITTER_SECTION":
-			case "OPEN_SECTION" + "-" + "MAILINGLIST_SECTION":
-			case "OPEN_SECTION" + "-" + "BONUSFILE_SECTION":
-			case "OPEN_SECTION" + "-" + "PRODUCTS_SECTION":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-OUVERTURE-DE-SECTION-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-OUVERTURE-DE-SECTION-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-OUVERTURE-DE-SECTION-NOM").text(obj_section);
-				break;
-
-			case "OPEN_SECTION" + "-" + "AUDIO_SECTION":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");						
-				$("#DETAILS-OUVERTURE-DU-PANNEAU-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-OUVERTURE-DU-PANNEAU-NOM").show();
-				$("#DETAILS-OUVERTURE-DU-PANNEAU-NOM").text(obj_section);
-				break;
-			
-			case "FULLSCREEN" + "-" + "TEASER_FULLSCREEN":
-			case "FULLSCREEN" + "-" + "VIDEOS_FULLSCREEN":
-			case "FULLSCREEN" + "-" + "PHOTOS_FULLSCREEN":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-PASSAGE-EN-FULLSCREEN-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-PASSAGE-EN-FULLSCREEN-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-PASSAGE-EN-FULLSCREEN-NOM").text(obj_section);
-				break;
-				
-			case "RETWEET" + "-" + "TWITTER_RETWEET":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");						
-				$("#DETAILS-RETWEET-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-RETWEET-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-RETWEET-NOM").text(obj_section);
-				break;
-
-			case "REPLY" + "-" + "TWITTER_REPLY":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-REPLY-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-REPLY-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-REPLY-NOM").text(obj_section);
-				break;
-
-			case "EXIT_FULLSCREEN" + "-" + "TEASER_EXITFULLSCREEN":
-			case "EXIT_FULLSCREEN" + "-" + "VIDEOS_EXITFULLSCREEN":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-SORTIR-DU-FULLSCREEN-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-SORTIR-DU-FULLSCREEN-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-SORTIR-DU-FULLSCREEN-NOM").text(obj_section);
-				break;
-
-			case "DOWNLOAD" + "-" + "PHOTOS_DOWNLOAD":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-TELECHARGEMENT-DE-PHOTO-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-TELECHARGEMENT-DE-PHOTO-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-TELECHARGEMENT-DE-PHOTO-NOM").text(obj_section);
-				break;
-
-			case "DOWNLOAD" + "-" + "EVENT_DATE":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");						
-				$("#DETAILS-TELECHARGEMENT-DUN-EVENEMENT-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-TELECHARGEMENT-DUN-EVENEMENT-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-TELECHARGEMENT-DUN-EVENEMENT-NOM").text(obj_section);
-				break;
-
-			case "DOWNLOAD" + "-" + "CONTACTS_DOWNLOAD":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");;							
-				$("#DETAILS-TELECHARGEMENT-DUN-CONTACT-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-TELECHARGEMENT-DUN-CONTACT-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-TELECHARGEMENT-DUN-CONTACT-NOM").text(obj_section);
-				break;
-
-			case "EXTERNAL_LINK" + "-" + "EVENT_MAP":
-			case "OPEN_CONTENT" + "-" + "EVENT_SHOWMAP":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");						
-				$("#DETAILS-VOIR-LA-CARTE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VOIR-LA-CARTE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VOIR-LA-CARTE-NOM").text(obj_section);
-				break;
-
-			case "OPEN_CONTENT" + "-" + "CUSTOM_SECTION_VIEW":
-			case "OPEN_CONTENT" + "-" + "FULLTEXT_VIEW":
-			case "OPEN_CONTENT" + "-" + "CONTACTS_VIEW":
-			case "OPEN_CONTENT" + "-" + "MAILINGLIST_VIEW":
-			case "OPEN_CONTENT" + "-" + "BONUSFILE_VIEW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-VUE-DE-LA-SECTION-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DE-LA-SECTION-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DE-LA-SECTION-NOM").text(obj_section);
-				break;
-
-			case "OPEN_CONTENT" + "-" + "PHOTOS_LISTVIEW":
-			case "OPEN_CONTENT" + "-" + "NEWS_LISTVIEW":
-			case "OPEN_CONTENT" + "-" + "CARDS_LISTVIEW":
-			case "OPEN_CONTENT" + "-" + "EVENT_LISTVIEW":
-			case "OPEN_CONTENT" + "-" + "PRODUCTS_LISTVIEW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-VUE-DE-LA-LISTE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DE-LA-LISTE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DE-LA-LISTE-NOM").text(obj_section);
-				break;
-
-			case "OPEN_CONTENT" + "-" + "PHOTOS_VIEW":
-			case "OPEN_CONTENT" + "-" + "PRODUCTS_PHOTO":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");						
-				$("#DETAILS-VUE-DUNE-PHOTO-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DUNE-PHOTO-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DUNE-PHOTO-NOM").text(obj_section);
-				break;
-
-			case "OPEN_CONTENT" + "-" + "NEWS_VIEW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-VUE-DUNE-NEWS-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DUNE-NEWS-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DUNE-NEWS-NOM").text(obj_section);
-				break;
-
-			case "OPEN_CONTENT" + "-" + "CARDS_VIEW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");						
-				$("#DETAILS-VUE-DUNE-FICHE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DUNE-FICHE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DUNE-FICHE-NOM").text(obj_section);
-				break;
-
-			case "OPEN_CONTENT" + "-" + "CARDS_TEXTE":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-VUE-DE-LA-PAGE-TEXTE-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DE-LA-PAGE-TEXTE-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DE-LA-PAGE-TEXTE-NOM").text(obj_section);
-				break;
-				
-			case "OPEN_CONTENT" + "-" + "CARDS_LINKS":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-VUE-DE-LA-PAGE-LIENS-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DE-LA-PAGE-LIENS-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DE-LA-PAGE-LIENS-NOM").text(obj_section);
-				break;
-				
-			case "OPEN_CONTENT" + "-" + "TWITTER_ACCOUNTVIEW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");					
-				$("#DETAILS-VUE-DUN-COMPTE-TWITTER-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DUN-COMPTE-TWITTER-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DUN-COMPTE-TWITTER-NOM").text(obj_section);
-				break;
-				
-			case "OPEN_CONTENT" + "-" + "PRODUCTS_VIEW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");				
-				$("#DETAILS-VUE-DUN-PRODUIT-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-DUN-PRODUIT-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-DUN-PRODUIT-NOM").text(obj_section);
-				break;
-				
-			case "OPEN_CONTENT" + "-" + "EVENT_VIEW":
-				//console.log("---------", info.cs_s_cat, "--------", info.cs_s_a, "------------------------------");
-				$("#DETAILS-VUE-EVENEMENT-LIEU-NOM").closest("tr.nom-de-la-section").show();
-				$("#DETAILS-VUE-EVENEMENT-LIEU-NOM").closest("tr.nom-de-la-section").next().show();
-				$("#DETAILS-VUE-EVENEMENT-LIEU-NOM").text(obj_section);
-				break;
-				
-			default:
-				break;	
-		}
-	}else{
-		console.log("There is nothing !!!!!!!!");
-	}
-}
-
 function trackEvent( info ) {
 	// charge realtime data and display on html
 
@@ -1429,7 +1133,7 @@ function trackEvent( info ) {
 	stats_general_action(info);
 	stats_detail(info);
 	stats_details_kpsule(info);
-	parse_xml(info); 
+	//parse_xml(info); 
 }
 
 $(document).ready(function(){
@@ -1461,7 +1165,9 @@ $(document).ready(function(){
 		$("#details,#details-kpsule").hide();
 		//all details kpsule closed
 		$(".de-kp-hid").hide();
-		$(".de-kp-opn").show();
+		$(".de-kp-opn").show();	
+		$(".de-kp-open").css("background-color", "#231f20");
+		$(".de-kp-open").find("p").css("background-color", "#231f20").css("color","#c8c8c8");
 	});
 	
 	// details
@@ -1473,6 +1179,8 @@ $(document).ready(function(){
 		//all details kpsule closed
 		$(".de-kp-hid").hide();
 		$(".de-kp-opn").show();
+		$(".de-kp-open").css("background-color", "#231f20");
+		$(".de-kp-open").find("p").css("background-color", "#231f20").css("color","#c8c8c8");
 	});
 	
 	// details kpsule
