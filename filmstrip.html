@@ -1,0 +1,542 @@
+<html>
+<head>
+	<title>Page preview Filmstriper</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<!-- JQuery -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>	
+	<!-- Custom --> 
+	<link href='http://fonts.googleapis.com/css?family=Roboto:500,400,300' rel='stylesheet' type='text/css'>
+	<link href="http://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+
+<div class="container" id="main-content">
+	<div class="row">
+		<!-- control stats -->
+		<div id="control-stats" class="col-md-3" >
+			<table id="control-stats-table" class="col-md-12" style="display:block;">
+				<tbody class="col-md-12">
+				<tr id="controler" class="col-md-12">
+					<td colspan="2" class="col-md-12">
+						<h1>Controler</h1>
+					</td>					
+					<td class="col-md-12">
+						<img id="ctl-cls" src="images/close.png" alt="close"/>
+					</td>
+				</tr>
+
+				<tr id="events" class="raw col-md-12">
+					<td colspan="2" class="col-md-12">
+						<h2>EVENTS</h2>
+					</td>					
+					<td class="col-md-12">
+						<img id="events-cls" src="images/arrow-up.png" alt="close"/>
+						<img id="events-opn" src="images/arrow-down.png" alt="open"/>
+					</td>
+				</tr>
+
+				<tr class="col-md-12"><td colspan="3" class="col-md-12"><hr></td></tr>
+				
+				<tr id="ge-de-dek" class="col-md-12">
+					<td id="ge-dsp" class="col-md-4"><p class="ge-de-dek-text col-md-12">General</p></td>
+					<td id="de-dsp" class="col-md-4"><p class="ge-de-dek-text col-md-12">Details</p></td>
+					<td id="dek-dsp" class="col-md-4"><p class="ge-de-dek-text col-md-12">Details Kpsule</p>
+				</td></tr>
+				
+				<tr  id="ge-de-dek-tr" class="col-md-12"><td colspan="3" class="col-md-12"><hr></td></tr>
+				
+				<tr id="general" class="col-md-12"><td colspan="3" class="col-md-12">
+					<table id="general-table" class="col-md-12">
+					<tr class="general-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Impression</p></td>
+						<td class="general-nbr "><p class="ge-txt"  id="GENERAL-IMPRESSION">0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>			
+					</tr><tr class="general-tr">
+						<td class="general-txt "><p class="ge-txt pull-left">Kpsule Chargé</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-KPSULE-CHARGE" >0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>
+					</tr><tr class="general-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Engagement</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-ENGAGEMENT" >0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>						
+					</tr><tr class="general-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Adhésion</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-ADHESION">0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>						
+					</tr><tr class="general-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Action</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-ACTION">0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>		
+					</tr><tr class="general-tr">
+						<td class="general-txt "><p class="ge-txt pull-left">Clic</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-CLIC"  >0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>
+					</tr><tr class="green-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Ouverture de section</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-OUVERTURE-DE-SECTION">0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>						
+					</tr><tr class="orange-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Contenu</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-CONTENU">0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>						
+					</tr><tr class="blue-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Lien externe</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-LIEN-EXTERNE" >0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>
+					</tr><tr class="red-tr">
+						<td class="general-txt "><p class="ge-txt pull-left" >Partage</p></td>
+						<td class="general-nbr "><p class="ge-txt" id="GENERAL-PARTAGE" >0</p></td>
+					</tr><tr class="general-tr">
+						<td colspan="2" ><hr></td>
+					</tr></table>
+				</td></tr>
+				
+				<tr id="details" class="col-md-12"><td colspan="3" class="col-md-12">
+					<table id="details-table" class="col-md-12">
+					<tbody id="details_tbody" style="display:block;overflow-y:scroll;max-height:600px;" >
+					<tr>
+						<td>
+							<p class="de-txt">Adhésion</p>
+							<div id="DETAILS_ADHESION_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_ADHESION_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_ADHESION_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>
+					</tr>
+					<tr>
+						<td>
+							<p class="de-txt">Adhésion unique</p>
+							<div id="DETAILS_ADHESION_UNIQUE_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_ADHESION_UNIQUE_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_ADHESION_UNIQUE_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>				
+					</tr>
+					<tr>
+						<td>
+							<p class="de-txt" >Clic</p>
+							<div id="DETAILS_CLIC_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_CLIC_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_CLIC_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>			
+					</tr>
+					<tr>
+						<td>
+							<p class="de-txt" >Engagement</p>
+							<div id="DETAILS_ENGAGEMENT_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_ENGAGEMENT_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_ENGAGEMENT_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>
+					</tr>
+					<tr>
+						<td>
+							<p class="de-txt">Engagement unique</p>
+							<div id="DETAILS_ENGAGEMENT_UNIQUE_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_ENGAGEMENT_UNIQUE_GENERAL_NOM">GENERAL</p>
+						</td>
+						<td>
+							<p class="de-txt-nbr" id="DETAILS_ENGAGEMENT_UNIQUE_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>
+					</tr>
+					<tr>
+						<td>
+							<p class="de-txt">Fermeture de la bannière</p>
+							<div id="DETAILS_FERMETURE_DE_LA_BANNIERE_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_FERMETURE_DE_LA_BANNIERE_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_FERMETURE_DE_LA_BANNIERE_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr>
+					<tr class="violet-tr">
+						<td>
+							<p class="de-txt">Fermeture du panneau</p>
+							<div id="DETAILS_FERMETURE_DU_PANNEAU_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_FERMETURE_DU_PANNEAU_GENERAL_NOM">GENERAL</p>
+						</td>
+						<td>
+							<p class="de-txt-nbr" id="DETAILS_FERMETURE_DU_PANNEAU_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>
+					</tr>
+					<tr id="testttestttesttest">
+						<td>
+							<p class="de-txt">Impression</p>
+							<div id="DETAILS_IMPRESSION_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_IMPRESSION_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_IMPRESSION_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>			
+					</tr>
+					<tr>
+						<td>
+							<p class="de-txt">Kpsule chargée</p>
+							<div id="DETAILS_KPSULE_CHARGEE_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_KPSULE_CHARGEE_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_KPSULE_CHARGEE_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr>
+					
+					<!-- LIEN EXTERNE with GENERAL -->
+					<tr class="blue-tr">
+						<td>
+							<p class="de-txt" >Lien externe</p>
+							<div id="DETAILS_LIENEXTERNE_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_LIENEXTERNE_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_LIENEXTERNE_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>
+					</tr>
+					<tr class="red-tr">
+						<td>
+							<p class="de-txt">Partage Twitter</p>
+							<div id="DETAILS_PARTAGE_TWITTER_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_PARTAGE_TWITTER_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_PARTAGE_TWITTER_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr>
+					<tr class="red-tr">
+						<td><p class="de-txt">Partage Google+</p>
+						<div id="DETAILS_PARTAGE_GOOGLE_GENERAL_URL_DIV"></div>
+						<p class="de-sub-txt" id="DETAILS_PARTAGE_GOOGLE_GENERAL_NOM">GENERAL</p></td>
+						<td><p class="de-txt-nbr" id="DETAILS_PARTAGE_GOOGLE_GENERAL">0</p></td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr>
+					<tr class="red-tr">
+						<td><p class="de-txt">Partage Facebook</p>
+						<div id="DETAILS_PARTAGE_FACEBOOK_GENERAL_URL_DIV"></div>
+						<p class="de-sub-txt" id="DETAILS_PARTAGE_FACEBOOK_GENERAL_NOM">GENERAL</p></td>
+						<td><p class="de-txt-nbr" id="DETAILS_PARTAGE_FACEBOOK_GENERAL">0</p></td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>		
+					</tr>
+					<tr class="red-tr">
+						<td>
+							<p class="de-txt">Partage Mail</p>
+							<div id="DETAILS_PARTAGE_MAIL_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_PARTAGE_MAIL_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_PARTAGE_MAIL_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>		
+					</tr>
+					<tr class="red-tr">
+						<td>
+							<p class="de-txt">Partage Autre</p>
+							<div id="DETAILS_PARTAGE_AUTRE_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_PARTAGE_AUTRE_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_PARTAGE_AUTRE_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr><tr class="red-tr">
+						<td>
+							<p class="de-txt">Partage Mail Send</p>
+							<div id="DETAILS_PARTAGE_MAIL_SEND_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_PARTAGE_MAIL_SEND_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_PARTAGE_MAIL_SEND_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr>
+					<tr class="red-tr">
+						<td>
+							<p class="de-txt">Partage Link</p>
+							<div id="DETAILS_PARTAGE_LINK_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_PARTAGE_LINK_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_PARTAGE_LINK_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr>
+					<tr class="red-tr">
+						<td>
+							<p class="de-txt">Partage Embed</p>
+							<div id="DETAILS_PARTAGE_EMBED_GENERAL_URL_DIV"></div>
+							<p class="de-sub-txt" id="DETAILS_PARTAGE_EMBED_GENERAL_NOM">GENERAL</p>
+						</td><td>
+							<p class="de-txt-nbr" id="DETAILS_PARTAGE_EMBED_GENERAL">0</p>
+						</td>
+					</tr><tr>
+						<td colspan="2" ><hr></td>	
+					</tr>
+					</tbody></table>
+				</td></tr>
+				
+				<tr id="details-kpsule" class="col-md-12"><td  class="col-md-12" colspan="3">
+					<table class="col-md-12" id="details-kpsule-table">
+					<tbody id="detials_kpsule_tbody" style="display:block;overflow-y:scroll;max-height:600px;" >
+					</tbody>
+					</table>
+				</td></tr>
+
+				<tr id="timers" class="col-md-12">
+					<td colspan="2" class="col-md-12">
+						<h2>TIMERS</h2>
+					</td>					
+					<td class="col-md-12">
+						<img id="timers-cls" src="images/arrow-up.png" alt="close"/>
+						<img id="timers-opn" src="images/arrow-down.png" alt="open"/>
+					</td></tr>
+
+				<tr id="timers-detail" class="col-md-12">
+					<td colspan="3" class="col-md-12">
+						<table id="timers-detail-table" class="col-md-12">
+						<tr class="col-md-12">
+						  <td class="col-md-12">
+							<h2 class="timers-text pull-left" >General</h2>
+						  </td><td class="timer-value col-md-12">
+							<h2 id="timer_global" class="timers-text " >2:01</h2>
+						  </td>
+						</tr><tr>
+							<td colspan="2"><hr></td>
+						</tr><tr class="col-md-12">
+						  <td class="col-md-12">
+							<h2 class="timers-text pull-left" >Exposition</h2>
+						  </td><td class="timer-value col-md-12">
+							<h2 id="timer_expo" class="timers-text " >1:23</h2>
+						  </td>
+						</tr><tr>
+							<td colspan="2"><hr></td>
+						</tr><tr class="col-md-12">
+						  <td class="col-md-12">
+							<h2 class="timers-text pull-left" >Engagement</h2>
+						  </td><td class="timer-value col-md-12">
+							<h2 id="timer_expand" class="timers-text " >1:23</h2>
+						  </td>
+						</tr><tr>
+							<td colspan="2"><hr></td>
+						</tr><tr class="col-md-12">
+						  <td class="col-md-12">
+							<h2 class="timers-text pull-left" >Dwell</h2>
+						  </td><td class="timer-value col-md-12">
+							<h2 id="timer_dwell" class="timers-text " >1:04</h2>
+						  </td>
+						</tr><tr>
+							<td colspan="2"><hr></td>
+						</tr><tr class="col-md-12">
+						  <td class="col-md-12">
+							<h2 class="timers-text pull-left" >First Engagement</h2>
+						  </td><td class="timer-value col-md-12">
+							<h2 id="timer_first_expand" class="timers-text " >1:04</h2>
+						  </td>
+						</tr><tr>
+							<td colspan="2"><hr></td>
+						</tr></table>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- end: control stats -->
+
+		<div id="previous-page" class="col-md-8 col-md-offset-0">
+			<header class="header col-md-12">
+			<div class="col-md-4" style="display:inline;">
+			  <img src="images/logo_thenews.jpg"  style="display:inline;" alt=""> 
+			</div><div class="col-md-6" style="display:inline;">
+			  <span class="slogan" style="display:inline;"><b>Toute l'actualité en france et dans le monde</b></span> 
+			</div><div class="col-md-1" style="display:inline;">  
+			  <img src="images/icons_share.jpg" style="display:inline;" alt="" style="">
+			</div>
+			  <nav class="navigation col-md-12">
+				<ul>
+					<li class="pink_border col-md-1"><a class="navigation-lien" href="#">SOCIETE</a></li>
+					<li class="pink_border col-md-1"><a class="navigation-lien" href="#">POLITIQUE</a></li>
+					<li class="pink_border col-md-1"><a class="navigation-lien" href="#">ECONOMIE</a></li>
+					<li class="pink_border col-md-1"><a class="navigation-lien" href="#">CULTURE</a></li>
+					<li class="pink_border col-md-1"><a class="navigation-lien" href="#">SCIENCE</a></li>
+					<li class="pink_border col-md-1"><a class="navigation-lien" id="selected_page" href="#">HIGH-TECH</a></li>	
+					<li class="pink_border col-md-1"><a class="navigation-lien" href="#">SPORT</a></li>
+					<li class="pink_border col-md-1"><a class="navigation-lien" href="#">PLANETE</a></li>
+				</ul>
+			  </nav>
+			</header>
+			 
+				<!-- left -->
+				<div id="left_content" class="col-md-8">
+					<div id="main_content" class="col-md-12">
+					   <h1 class="title-article">Solar Impulse 2 commence son tour du monde</h1>
+					   <h2 class="subtitle-article">C'est parti pour Solar Impulse 2 ! L'avion qui fonctionne entièrement à l'énergie solaire.</h2>
+					   <div>
+						<div class="read_article">Lire l'article</div>
+						<img src="images/img_article1.jpg">
+					   </div>
+					</div>
+					
+					<div class="left_small_article col-md-12">
+						<h1 class="title-smalll-article">La guerre est déclarée</h1>
+						<h2 class="subtitle-smalll-article">Comment choisir votre console next-gen ?</h2>
+						<div id="le-sm-ar-img" class="col-md-12" >
+							<div class="read_article">Lire l'article</div>
+							<img src="images/img_article2.jpg">
+						</div>
+					</div>
+				
+					<div class="right_small_article col-md-12">
+						<h1 class="title-smalll-article right-enbref-contenttitle-smalll-article">Google Maps</h1>
+						<h2 class="subtitle-smalll-article right-subtitle-smalll-article">Explorer Venise et ses canaux</h2>
+						<div id="ri-sm-ar-img" class="col-md-12 right-ri-sm-ar-img" >
+							<div class="read_article">Lire l'article</div>
+							<img src="images/img_article3.jpg">
+						</div>
+					</div>
+					
+					<div id="main_content" class="col-md-12"></div>
+					
+					<div class="left_small_article col-md-12">
+						<h1 class="title-smalll-article" class="col-md-12">Un bouton "compassion" ?</h1>
+						<h2 class="subtitle-smalll-article">FB réfléchit à lancer un nouveau bouton</h2>
+						<div id="le-sm-ar-img" class="col-md-12" >
+							<div class="read_article">Lire l'article</div>
+							<img src="images/facebook.jpg">
+						</div>
+					</div>
+				
+					<div class="right_small_article col-md-12">
+						<h1 class="title-smalll-article right-enbref-contenttitle-smalll-article">Parrot Flower Power</h1>
+						<h2 class="subtitle-smalll-article right-subtitle-smalll-article">Le capteur connecté pour vos plantes</h2>
+						<div id="ri-sm-ar-img" class="col-md-12 right-ri-sm-ar-img" >
+							<div class="read_article">Lire l'article</div>
+							<img src="images/flower.jpg">
+						</div>
+					</div>	
+				</div>
+				<!-- end: left -->
+
+
+				<!-- right -->
+				<div id="right_content" class="col-md-3">
+					<aside class="aside col-md-12">
+						<div id="obj_kpsule" class="col-md-12 col-md-offset-7">
+							<!-- Kpsule 300x600 -->
+							<div id="outer_div_9hprscqp"
+							style="display: block; position: relative; background-color: rgb(0, 0, 0); width: 300px; height: 600px; visibility: visible; margin-top: 40px;">
+							<script type="text/javascript" charset="utf-8">
+							  function getParamValue(param,url)
+							  {
+								var u = url == undefined ? document.location.href : url;
+								var reg = new RegExp('(\\?|&|^)'+param+'=(.*?)(&|$|#)');
+								matches = u.match(reg);
+								if(matches)
+								  return matches[2] != undefined ? decodeURIComponent(matches[2]).replace(/\+/g,' ') : '';
+							  }
+								
+								// Ad name & Anchor: local test
+								var currentAd = "netflixdocumentaires",
+								currentAnchor = "2691870";
+														
+								//Ad name & Anchor : online
+								//var currentAd = getParamValue('ad'),
+								//currentAnchor = getParamValue('anchor');
+
+							  kpsuleScriptURL = "http://ads-test.kpsule.me/" + currentAd+ "/" +currentAd+"_"+currentAnchor+".js?nocache="+Math.floor(Math.random() * (12345 - 1 + 1) + 1);
+							  anchorDivId = "kpsuleAd_filmstrip_"+currentAnchor+"_preview";
+							  //console.log("[Kpsule Ads Sample] You've asked for : "+currentAd+" - Anchor is "+currentAnchor);
+                              
+							  kpsuleAdPreview = true;
+
+							  var params = {
+								  pub_campaign: '',
+								  cache_buster: '%%CACHEBUSTER%%',
+								  click_url: '%%CLICK_URL%%',
+								  ad_id: currentAnchor
+							  };
+
+							  var toto = '<sc' + 'ript type="text/javascript">(window._data = (window._data || [])).push({cache_buster: "' + params.cache_buster + '", click_url: "' + params.click_url + '", ad_id: "' + params.ad_id + '", frameBusting: false, k_tracker: "panel" });</scr' + 'ipt>';
+
+							  document.write(toto + "<scr"+"ipt id='"+anchorDivId+"' type='text/javascript' src='"+kpsuleScriptURL+"'></scr"+"ipt>");
+							</script>
+						</div>
+					<div class="en_bref col-md-12">
+						<img src="images/enbref.jpg" alt=""><br>
+						<div id="right-enbref-content" class="col-md-12">
+							<div class="en_bref_content"><span class="green_highlight">Snapchat</span> gagne en popularité chez les adolescents.
+							</div>
+							<div class="bottom_bar"><div></div></div>
+							
+							<div class="en_bref_content">La justice américaine autorise <span class="green_highlight">Google</span> à numériser tous les livres.
+							</div>
+							<div class="bottom_bar"><div></div></div>
+							
+							<div class="en_bref_content">Notre top 10 des meilleurs <span class="green_highlight">Apps IOS.</span>
+							</div>
+							<div class="bottom_bar"><div></div></div>
+							
+							<div class="en_bref_content">On a testé la <span class="green_highlight">TV 4K de Sony.</span>
+							</div>
+						</div>
+					</div>				
+					</aside>
+				</div>
+			  <!-- end: right -->
+			</div>
+			 
+			<footer class="footer col-md-12">
+			  <div>
+			   <div class="footer_content">
+				<div class="footer_left">
+				 <b>The News</b><br> Internationa, Politique, Société,
+				 Economie, Culture, Science, Sport, High-Tech, Planète
+				</div>
+				<div class="footer_mid">
+				 <b>Informations</b><br> Plan du site-Mentions légales-Qui
+				 sommes-nous ?-Publicité-Devenir partenaire-Index-Aide:FAQ
+				</div>
+				<div class="footer_right">
+				 <b>Newsletters</b><br> Abonnez-vous à nos newsletters
+				</div>
+			   </div>
+			   <div class="footer_rights">© The News-2015-All rights reserved</div>
+			  </div>
+			 </footer>
+		</div> 
+	 </div>
+ </div>
+ </body>
+</html>
+
